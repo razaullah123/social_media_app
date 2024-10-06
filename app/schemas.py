@@ -23,19 +23,30 @@ class UserOut(BaseModel):
     class config:
         orm_mode = True
 
+
 class Vote(BaseModel):
     post_id: int
     # user_id: int
     dir: conint(ge=0, le=1)
+
 
 class Post(PostBase):
     id: int
     created_at: datetime
     owner_id: int
     owner: UserOut
+
     # votes: Vote
 
     class confiq:
+        orm_mode = True
+
+
+class PostOut(BaseModel):
+    Post: Post
+    votes: int
+
+    class Config:
         orm_mode = True
 
 
@@ -56,6 +67,3 @@ class Token(BaseModel):
 
 class TokenData(BaseModel):
     id: Optional[str] = None
-
-
-
